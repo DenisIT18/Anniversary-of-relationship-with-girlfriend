@@ -191,92 +191,93 @@
 
   <script>
     /* ---------- Stars background (small twinkling dots) ---------- */
-    (function createStars() {
-      const count = 80;
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement('div');
-        el.className = 'star';
-        const size = (Math.random() * 4 + 1) + 'px';
-        el.style.width = size; el.style.height = size;
-        el.style.left = (Math.random() * 100) + 'vw';
-        el.style.top = (Math.random() * 100) + 'vh';
-        el.style.opacity = Math.random() * 0.9;
-        el.style.animationDuration = (2 + Math.random() * 4) + 's';
-        document.body.appendChild(el);
-      }
-    })();
+    /* ---------- Stars background (small twinkling dots) ---------- */
+(function createStars() {
+  const count = 80;
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'star';
+    const size = (Math.random() * 4 + 1) + 'px';
+    el.style.width = size; el.style.height = size;
+    el.style.left = (Math.random() * 100) + 'vw';
+    el.style.top = (Math.random() * 100) + 'vh';
+    el.style.opacity = Math.random() * 0.9;
+    el.style.animationDuration = (2 + Math.random() * 4) + 's';
+    document.body.appendChild(el);
+  }
+})();
 
-    /* ---------- Timer (love timer) ---------- */
-    function updateTimer() {
-      const startDate = new Date("2023-09-17T00:00:00");
-      const now = new Date();
-      const diff = now - startDate;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById('timer').textContent =
-        `Мы вместе уже ${days} дней, ${hours} часов, ${minutes} минут и ${seconds} секунд 💕`;
-    }
-    setInterval(updateTimer, 1000);
-    updateTimer();
+/* ---------- Timer (love timer) ---------- */
+function updateTimer() {
+  const startDate = new Date("2023-09-17T00:00:00");
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+  document.getElementById('timer').textContent =
+    `Мы вместе уже ${days} дней, ${hours} часов, ${minutes} минут и ${seconds} секунд 💕`;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
 
-    /* ---------- Slideshow ---------- */
-    (function() {
-      let idx = 0;
-      const slides = document.querySelectorAll('.slideshow .slide');
-      const prev = document.querySelector('.slideshow .prev');
-      const next = document.querySelector('.slideshow .next');
-      function show(i) {
-        slides.forEach(s => s.style.display = 'none');
-        slides[i].style.display = 'block';
-      }
-      prev.addEventListener('click', () => { idx = (idx - 1 + slides.length) % slides.length; show(idx); });
-      next.addEventListener('click', () => { idx = (idx + 1) % slides.length; show(idx); });
-      setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 5000);
-      show(0);
-    })();
+/* ---------- Slideshow ---------- */
+(function() {
+  let idx = 0;
+  const slides = document.querySelectorAll('.slideshow .slide');
+  const prev = document.querySelector('.slideshow .prev');
+  const next = document.querySelector('.slideshow .next');
+  function show(i) {
+    slides.forEach(s => s.style.display = 'none');
+    slides[i].style.display = 'block';
+  }
+  prev.addEventListener('click', () => { idx = (idx - 1 + slides.length) % slides.length; show(idx); });
+  next.addEventListener('click', () => { idx = (idx + 1) % slides.length; show(idx); });
+  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 5000);
+  show(0);
+})();
 
-    /* ---------- Music control ---------- */
-    const audio = document.getElementById('bg-music');
-    const playBtn = document.getElementById('playMusicBtn');
-    let musicPlaying = false;
-    audio.volume = 0.45;
-    playBtn.addEventListener('click', async () => {
-      try {
-        if (!musicPlaying) { await audio.play(); playBtn.textContent = 'Пауза музыки'; musicPlaying = true; }
-        else { audio.pause(); playBtn.textContent = 'Включить музыку'; musicPlaying = false; }
-      } catch(e) {
-        alert('Браузер запретил автозапуск музыки. Нажми ещё раз кнопку для включения.');
-      }
-    });
-    audio.play().then(() => { musicPlaying = true; playBtn.textContent = 'Пауза музыку'; }).catch(() => {/*blocked*/});
+/* ---------- Music control ---------- */
+const audio = document.getElementById('bg-music');
+const playBtn = document.getElementById('playMusicBtn');
+let musicPlaying = false;
+audio.volume = 0.45;
+playBtn.addEventListener('click', async () => {
+  try {
+    if (!musicPlaying) { await audio.play(); playBtn.textContent = 'Пауза музыку'; musicPlaying = true; }
+    else { audio.pause(); playBtn.textContent = 'Включить музыку'; musicPlaying = false; }
+  } catch(e) {
+    alert('Браузер запретил автозапуск музыки. Нажми ещё раз кнопку для включения.');
+  }
+});
+audio.play().then(() => { musicPlaying = true; playBtn.textContent = 'Пауза музыку'; }).catch(() => {/*blocked*/});
 
-    /* ---------- Floating hearts ---------- */
-    function createHeart() {
-      const h = document.createElement('div');
-      h.className = 'heart';
-      h.style.left = (5 + Math.random() * 90) + 'vw';
-      const size = (10 + Math.random() * 30);
-      h.style.fontSize = size + 'px';
-      h.style.opacity = (0.6 + Math.random() * 0.4);
-      h.innerText = Math.random() > 0.5 ? '💜' : '❤️';
-      document.body.appendChild(h);
-      setTimeout(() => { h.remove(); }, 6500);
-    }
-    const heartInterval = window.innerWidth < 600 ? 800 : 450;
-    setInterval(createHeart, heartInterval);
+/* ---------- Floating hearts ---------- */
+function createHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.style.left = (5 + Math.random() * 90) + 'vw';
+  const size = (10 + Math.random() * 30);
+  h.style.fontSize = size + 'px';
+  h.style.opacity = (0.6 + Math.random() * 0.4);
+  h.innerText = Math.random() > 0.5 ? '💜' : '❤️';
+  document.body.appendChild(h);
+  setTimeout(() => { h.remove(); }, 6500);
+}
+const heartInterval = window.innerWidth < 600 ? 800 : 450;
+setInterval(createHeart, heartInterval);
 
-    /* ---------- Reasons toggle ---------- */
-    function toggleReasons() {
-      const r = document.getElementById('reasons');
-      if (r.style.display === 'block') { r.style.display = 'none'; r.setAttribute('aria-hidden', 'true'); }
-      else { r.style.display = 'block'; r.setAttribute('aria-hidden', 'false'); r.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-    }
-    window.toggleReasons = toggleReasons;
+/* ---------- Reasons toggle ---------- */
+function toggleReasons() {
+  const r = document.getElementById('reasons');
+  if (r.style.display === 'block') { r.style.display = 'none'; r.setAttribute('aria-hidden', 'true'); }
+  else { r.style.display = 'block'; r.setAttribute('aria-hidden', 'false'); r.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+}
+window.toggleReasons = toggleReasons;
 
-    /* ---------- Envelope open (secret letter) ---------- */
-    const envelope = document.getElementById('envelope');
+/* ---------- Envelope open (secret letter) ---------- */
+const envelope = document.getElementById('envelope');
 function openEnvelope() {
   envelope.classList.toggle('open');
   const letter = envelope.querySelector('.letter');
@@ -289,70 +290,70 @@ function openEnvelope() {
 }
 window.openEnvelope = openEnvelope;
 
-    /* ---------- Show secret (button) ---------- */
-    function showSecret() {
+/* ---------- Show secret (button) ---------- */
+function showSecret() {
   if (!envelope.classList.contains('open')) openEnvelope();
   envelope.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 window.showSecret = showSecret;
 
-    /* ---------- Fireworks (simple particles) ---------- */
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+/* ---------- Fireworks (simple particles) ---------- */
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-    function launchFireworks() {
-      const fireworks = [];
-      const bursts = 8;
-      for (let b = 0; b < bursts; b++) {
-        const cx = innerWidth * (0.2 + Math.random() * 0.6);
-        const cy = innerHeight * (0.25 + Math.random() * 0.25);
-        const count = 50 + Math.floor(Math.random() * 70);
-        for (let i = 0; i < count; i++) {
-          fireworks.push({
-            x: cx, y: cy,
-            vx: (Math.random() - 0.5) * (5 + Math.random() * 7),
-            vy: (Math.random() - 0.5) * (5 + Math.random() * 7),
-            life: 70 + Math.floor(Math.random() * 70),
-            age: 0,
-            hue: Math.floor(Math.random() * 360)
-          });
-        }
-      }
-
-      function frame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = fireworks.length - 1; i >= 0; i--) {
-          const p = fireworks[i];
-          p.age++;
-          p.x += p.vx;
-          p.y += p.vy + 0.15 * (p.age / 5);
-          p.vx *= 0.98; p.vy *= 0.98;
-          const alpha = 1 - p.age / p.life;
-          ctx.beginPath();
-          ctx.fillStyle = `hsla(${p.hue}, 100%, 60%, ${alpha})`;
-          ctx.arc(p.x, p.y, 2.5 + (1.5 * (p.age / p.life)), 0, Math.PI * 2);
-          ctx.fill();
-          if (p.age > p.life) fireworks.splice(i, 1);
-        }
-        if (fireworks.length > 0) requestAnimationFrame(frame);
-      }
-      frame();
+function launchFireworks() {
+  const fireworks = [];
+  const bursts = 8;
+  for (let b = 0; b < bursts; b++) {
+    const cx = innerWidth * (0.2 + Math.random() * 0.6);
+    const cy = innerHeight * (0.25 + Math.random() * 0.25);
+    const count = 50 + Math.floor(Math.random() * 70);
+    for (let i = 0; i < count; i++) {
+      fireworks.push({
+        x: cx, y: cy,
+        vx: (Math.random() - 0.5) * (5 + Math.random() * 7),
+        vy: (Math.random() - 0.5) * (5 + Math.random() * 7),
+        life: 70 + Math.floor(Math.random() * 70),
+        age: 0,
+        hue: Math.floor(Math.random() * 360)
+      });
     }
+  }
 
-    /* expose some functions for buttons */
-    window.toggleReasons = toggleReasons;
-    window.showSecret = showSecret;
+  function frame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = fireworks.length - 1; i >= 0; i--) {
+      const p = fireworks[i];
+      p.age++;
+      p.x += p.vx;
+      p.y += p.vy + 0.15 * (p.age / 5);
+      p.vx *= 0.98; p.vy *= 0.98;
+      const alpha = 1 - p.age / p.life;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue}, 100%, 60%, ${alpha})`;
+      ctx.arc(p.x, p.y, 2.5 + (1.5 * (p.age / p.life)), 0, Math.PI * 2);
+      ctx.fill();
+      if (p.age > p.life) fireworks.splice(i, 1);
+    }
+    if (fireworks.length > 0) requestAnimationFrame(frame);
+  }
+  frame();
+}
 
-    /* Accessibility: keyboard open envelope with Enter when focused */
-    envelope.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
-    });
+/* expose some functions for buttons */
+window.toggleReasons = toggleReasons;
+window.showSecret = showSecret;
+
+/* Accessibility: keyboard open envelope with Enter when focused */
+envelope.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+});
   </script>
 </body>
-
 </html>
+
 
 
