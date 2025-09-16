@@ -174,14 +174,14 @@
 
     <!-- envelope (secret letter) -->
     <div class="envelope" id="envelope" onclick="openEnvelope()">
-      <div class="flap" aria-hidden="true"></div>
-      <div class="body"></div>
-      <div class="letter" role="article" aria-hidden="true">
-        <strong>Дорогая Алина,</strong><br><br>
-        Спасибо за два года счастья. Я хочу, чтобы каждый наш день был наполнен любовью, смехом и светом.<br><br>
-        Ты — моё сердце, моя душа, моя навсегда. Люблю тебя бесконечно 💜❤️
-      </div>
-    </div>
+  <div class="flap" aria-hidden="true"></div>
+  <div class="body"></div>
+  <div class="letter" role="article" aria-hidden="true">
+    <strong>Дорогая Алина,</strong><br><br>
+    Спасибо за два года счастья. Я хочу, чтобы каждый наш день был наполнен любовью, смехом и светом.<br><br>
+    Ты — моё сердце, моя душа, моя навсегда. Люблю тебя бесконечно 💜❤️
+  </div>
+</div>
 
     
   </div>
@@ -277,24 +277,24 @@
 
     /* ---------- Envelope open (secret letter) ---------- */
     const envelope = document.getElementById('envelope');
-    function openEnvelope() {
-      envelope.classList.toggle('open');
-      const letter = envelope.querySelector('.letter');
-      if (envelope.classList.contains('open')) {
-        letter.setAttribute('aria-hidden', 'false');
-        launchFireworks();
-      } else {
-        letter.setAttribute('aria-hidden', 'true');
-      }
-    }
-    window.openEnvelope = openEnvelope;
+function openEnvelope() {
+  envelope.classList.toggle('open');
+  const letter = envelope.querySelector('.letter');
+  if (envelope.classList.contains('open')) {
+    letter.setAttribute('aria-hidden', 'false');
+    launchFireworks();
+  } else {
+    letter.setAttribute('aria-hidden', 'true');
+  }
+}
+window.openEnvelope = openEnvelope;
 
     /* ---------- Show secret (button) ---------- */
     function showSecret() {
-      if (!envelope.classList.contains('open')) openEnvelope();
-      envelope.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    window.showSecret = showSecret;
+  if (!envelope.classList.contains('open')) openEnvelope();
+  envelope.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+window.showSecret = showSecret;
 
     /* ---------- Fireworks (simple particles) ---------- */
     const canvas = document.getElementById('fireworks');
@@ -354,4 +354,5 @@
 </body>
 
 </html>
+
 
